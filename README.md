@@ -8,16 +8,16 @@ Sesamex is a flexible authentication solution for Elixir / Phoenix.
 
 1. Add `sesamex` to your list of dependencies in `mix.exs`:
 
-``elixir
+```elixir
 def deps do
   [{:sesamex, "~> 0.1.0"}]
 end
-``
+```
 
 2. Ensure `sesamex` is started before your
 application:
 
-``elixir
+```elixir
 def application do
   [applications: [:sesamex]]
 end
