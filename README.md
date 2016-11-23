@@ -1,4 +1,4 @@
-# Sesamex [WIP]
+# Sesamex [WIP] [![Build Status](https://travis-ci.org/khusnetdinov/sesamex.svg?branch=master)](https://travis-ci.org/khusnetdinov/sesamex)
 
 ![img](http://res.cloudinary.com/dtoqqxqjv/image/upload/v1477049798/147705061811651_leoa8a.jpg)
 
