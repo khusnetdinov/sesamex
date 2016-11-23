@@ -5,4 +5,4 @@ otp_release:
     - 19
 notifications:
   email: false
-sudo: false
+sudo: true
