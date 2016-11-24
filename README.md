@@ -53,10 +53,10 @@ end
 ### Sesamex.Routes
 
 Add to Routes module `authentiate: 2` macros which create additional routes for `resource` and each functional module.
-It acceps `resource` in plural form and create additional routes.
+It acceps `resource` in plural form.
 For constrain modules that you want to use pass to helper:
 
-  * only: [:module, :other_module] - Only for this modules will be generated roumoduletes;
+  * only: [:module, :other_module] - Only for this modules will be generated routes;
 
   * expect: [:module, :other_module] - Except this modules will be generated routes;
 
