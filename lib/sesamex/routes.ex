@@ -14,36 +14,43 @@ defmodule Sesamex.Routes do
   """
   defmacro authenticate(resources_name, opts \\ []) when is_atom(resources_name) do
     modules = required_modules(opts)
+    controllers = predefined_controllers(opts)
     resources = Atom.to_string(resources_name)
 
-    modules_routes(resources, modules)
+    modules_routes(resources, modules, controllers)
   end
 
   @doc false
-  defp required_modules(modules) do
-    if only = Keyword.get(modules, :only) do
+  defp required_modules(opts) do
+    if only = Keyword.get(opts, :only) do
       @modules -- (@modules -- only)
     else
-      @modules -- Keyword.get(modules, :except, [])
+      @modules -- Keyword.get(opts, :except, [])
     end
   end
 
   @doc false
-  defp modules_routes(resources, modules) do
+  defp predefined_controllers(opts) do
+    Keyword.get(opts, :controllers, []);
+  end
+
+  @doc false
+  defp modules_routes(resources, modules, predefined_controllers) do
     resource = singularize(resources)
 
     quote do
       scope "/#{unquote(resources)}" do
         if Enum.member?(unquote(modules), :registration) do
-          unquote(define_registration_routes_for(resource))
+          unquote(define_registration_routes_for(resource, predefined_controllers))
         end
       end
     end
   end
 
   @doc false
-  defp define_registration_routes_for(resource) do
-    controller = define_controller(:registration, resource)
+  defp define_registration_routes_for(resource, predefined_controllers) do
+    predefined_name = Keyword.get(predefined_controllers, :registration, nil)
+    controller = define_controller(:registration, resource, predefined_name)
     routes_path = define_routes_path(:registration, resource)
 
     quote bind_quoted: [controller: controller, routes_path: routes_path] do
@@ -53,11 +60,14 @@ defmodule Sesamex.Routes do
   end
 
   @doc false
-  defp define_controller(module, resource) do
+  defp define_controller(module, resource, predefined_name) do
     scope = String.capitalize(resource)
     controller_name = String.capitalize(Atom.to_string(module))
 
-    {:__aliases__, [alias: false], [:"#{scope}.#{controller_name}Controller"]}
+    case predefined_name do
+      nil -> {:__aliases__, [alias: false], [:"#{scope}.#{controller_name}Controller"]}
+      predefined_name -> {:__aliases__, [alias: false], [predefined_name]}
+    end
   end
 
   @doc false

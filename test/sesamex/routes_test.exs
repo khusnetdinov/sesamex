@@ -15,5 +15,9 @@ defmodule Sesamex.RoutesTest do
     @tag :skip
     test "should return routes without :except" do
     end
+
+    @tag :skip
+    test "should return routes with predefined controller name" do
+    end
   end
 end
