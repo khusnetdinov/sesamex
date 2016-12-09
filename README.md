@@ -30,9 +30,7 @@ It will create 2 files:
   - `web/models/user.ex`
   - `priv/repo/migrations/#{timestamp}_create_user.ex`
   
-After don't forget run ecto migration.
-
-If you need to add fields to exist model see [model.eex](https://github.com/khusnetdinov/sesamex/blob/resource_model/priv/templates/sesamex.gen/model.eex) and
+After don't forget run ecto migration. If you need to add fields to exist model see [model.eex](https://github.com/khusnetdinov/sesamex/blob/resource_model/priv/templates/sesamex.gen/model.eex) and
 [migration.eex](https://github.com/khusnetdinov/sesamex/blob/master/priv/templates/sesamex.gen/migration.eex)
 
 [Read more]()
