@@ -1,0 +1,11 @@
+defmodule <%= module %>.<%= base %> do
+  use <%= module %>.Web, :model
+
+  schema "<%= plural %>" do
+    field :email, :string
+    filed :password, :string, virtual: true
+    field :encrypted_password, :string
+
+    timestamps
+  end
+end
