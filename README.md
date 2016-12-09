@@ -6,9 +6,6 @@
 
 Sesamex is a flexible authentication solution for Elixir / Phoenix. Functionality is devided to several modules:
 
- * [Routes]() - Create scoped routes for `resource` which is used for authentication.
- * [Registration]() - Responsible for creating and storing `Resource model` in Database, with encrypted password.
-
 ## Installation
 
 Add `sesamex` to your list of dependencies in `mix.exs`:
