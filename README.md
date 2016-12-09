@@ -28,7 +28,8 @@ $ mix sesamex.gen.model User users
 
 It will create 2 files:
   - `web/models/user.ex`
-  - `priv/repo/migrations/#{timestamp}_create_user.ex`.
+  - `priv/repo/migrations/#{timestamp}_create_user.ex`
+  
 After don't forget run ecto migration.
 
 If you need to add fields to exist model see [model.eex](https://github.com/khusnetdinov/sesamex/blob/resource_model/priv/templates/sesamex.gen/model.eex) and
