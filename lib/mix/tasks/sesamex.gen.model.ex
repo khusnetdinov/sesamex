@@ -29,7 +29,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Model do
     model_path = "web/models/#{bindings[:path]}.ex"
     migration_path = "priv/repo/migrations/#{timestamp}_create_#{bindings[:path]}.exs"
 
-
     if exists_file? model_path do
       if identical_file?(model_path, model) do
         say_identic("#{model_path}")

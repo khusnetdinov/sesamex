@@ -18,9 +18,28 @@ end
 
 ## Usage
 
+### Create resource model
+
+You need create model or add to exist fields for using them for authenticetion.
+For generation use mix task with 2 arguments singular capitalize name of
+model and plural lowercase, like `phoenix.gen.html`:
+
+```elixir
+$ mix sesamex.gen.model User users
+```
+
+It will create 2 files `web/models/user/ex` and 'priv/repo/migrations/#{timestamp}_create_user.ex'.
+After don't forget run ecto migration.
+
+If you need to add fields to exist model see [model.eex](https://github.com/khusnetdinov/sesamex/blob/resource_model/priv/templates/sesamex.gen/model.eex) and
+[migration.eex](https://github.com/khusnetdinov/sesamex/blob/master/priv/templates/sesamex.gen/migration.eex)
+
+[Read more]()
+
+
 ### Setting up routes
 
-First you need define `resource` for authentication. Use `Sesamex.Routes` module for this purpose. Rsource should be in plural form. See examle below:
+Fou need define `resource` for authentication requests. Use `Sesamex.Routes` module for this purpose. Rsource should be in plural form. See examle below:
 
 ```elixir
 defmodule Project.Routes do
@@ -48,6 +67,8 @@ end
 ## Modules
 
 ### Sesamex.Routes
+
+
 
 Add to Routes module `authentiate: 2` macros which create additional routes for `resource` and each functional module.
 It acceps `resource` in plural form.
@@ -84,9 +105,9 @@ If you want to redifine controller name, use `controllers` Keywords list:
 
 ```
 
-Aweiliable modules:
+## Tasks
 
- * `:registration`
+TODO: Sesamex.Gen.Model
 
 TODO:Usage
 
