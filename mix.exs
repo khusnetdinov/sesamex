@@ -33,7 +33,7 @@ defmodule Sesames.Mixfile do
   defp deps do
     [{:ex_doc, ">= 0.0.0", only: :dev},
      {:inflex, "~> 1.7.0" },
-     {:loki, "~> 1.0.1"},
+     {:loki, "~> 1.1.0"},
      {:phoenix, "~> 1.2.1"}]
   end
 end
