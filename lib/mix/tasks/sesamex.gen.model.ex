@@ -31,10 +31,15 @@ defmodule Mix.Tasks.Sesamex.Gen.Model do
 
     if exists_file? model_path do
       if identical_file?(model_path, model) do
-        say_identic("#{model_path}")
+        say_identical("#{model_path}")
       else
         say_exists("#{model_path}")
-        create_file_force_or_skip(model_path, model)
+        if yes?(" Do you want to force create file? [Yn] ") do
+          create_file_force(model_path, model)
+        else
+          say_skip(model_path)
+          :skip
+        end
       end
     else
       create_file(model_path, model)
