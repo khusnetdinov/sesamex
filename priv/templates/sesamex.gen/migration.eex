@@ -4,8 +4,8 @@ defmodule  <%= module %>.Repo.Migrations.Create<%= base %> do
   def change do
     create table(:<%= plural %>) do
       # :registration
-      add :email, :string, null: false, default: ""
-      add :encrypted_password, :string, null: false, default: ""
+      add :email, :string, null: false,
+      add :encrypted_password, :string, default: ""
 
       timestamps
     end
