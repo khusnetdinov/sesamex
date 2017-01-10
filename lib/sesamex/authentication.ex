@@ -2,6 +2,11 @@ defmodule Sesamex.Authentication do
   import Plug.Conn
   import Comeonin.Bcrypt, only: [checkpw: 2, dummy_checkpw: 0]
 
+
+  @moduledoc """
+  """
+
+
   @doc """
   """
   @spec sign_in(Tuple.t, Atom.t, any) :: Tuple.t
@@ -51,6 +56,7 @@ defmodule Sesamex.Authentication do
   def sign_out(conn) do
     configure_session(conn, drop: true)
   end
+
 
   defmacro __using__(_opts) do
     quote do

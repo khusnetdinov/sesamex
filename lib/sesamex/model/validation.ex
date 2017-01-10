@@ -8,10 +8,12 @@ defmodule Sesamex.Model.Validation do
 
   @doc """
   """
+  @spec validate_password_confirmation(Tuple.t) :: Tuple.t
   def validate_password_confirmation(changeset) do
     validate_password_confirmation(changeset, "Invalid email or password.")
   end
 
+  @spec validate_password_confirmation(Tuple.t, String.t) :: Tuple.t
   def validate_password_confirmation(changeset, error_message) do
     password = get_field(changeset, :password)
     password_confirmation = get_field(changeset, :password_confirmation)

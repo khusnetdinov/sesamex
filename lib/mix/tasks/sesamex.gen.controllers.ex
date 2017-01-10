@@ -19,10 +19,12 @@ defmodule Mix.Tasks.Sesamex.Gen.Controllers do
 
   @doc """
   """
+  @spec run(List.t) :: none()
   def run([]) do
     IO.puts "Please provide model name!"
   end
 
+  @spec run(List.t) :: none()
   def run([singular]) do
     bindings = Mix.Phoenix.inflect(singular)
 
@@ -34,9 +36,10 @@ defmodule Mix.Tasks.Sesamex.Gen.Controllers do
   end
 
 
+  @spec templates(Tuple.t) :: none()
   defp templates(bindings) do
-    Enum.map(modules, fn(controller) ->
-      {controller, apply(__MODULE__, :"#{controller}_template", [bindings[:base], bindings[:scoped], bindings[:singular], String.capitalize("#{controller}")])}
+    Enum.map(modules, fn(file) ->
+      {file, apply(__MODULE__, :"#{file}_template", [bindings[:base], bindings[:scoped], bindings[:singular], String.capitalize("#{file}")])}
     end)
   end
 end

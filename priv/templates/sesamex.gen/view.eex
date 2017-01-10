@@ -1,0 +1,3 @@
+defmodule <%= base %>.<%= scoped %>.<%= view %>View do
+  use <%= base %>.Web, :view
+end

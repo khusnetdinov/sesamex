@@ -9,10 +9,12 @@ defmodule Sesamex.Model do
 
   @doc """
   """
+  @spec changeset(Tuple.t, Tuple.t) :: Tuple.t
   def changeset(model, params \\ :empty) do
     changeset(model, params, [:email])
   end
 
+  @spec changeset(Tuple.t, Tuple.t, Keyword.t) :: Tuple.t
   def changeset(model, params, opts) do
     cast_fields = Keyword.fetch!(opts, :cast)
 
@@ -24,10 +26,12 @@ defmodule Sesamex.Model do
 
   @doc """
   """
+  @spec registration_changeset(Tuple.t, Tuple.t) :: Tuple.t
   def registration_changeset(model, params) do
     registration_changeset(model, params, password_length: [min: 6, max: 100])
   end
 
+  @spec registration_changeset(Tuple.t, Tuple.t, Keyword.t) :: Tuple.t
   def registration_changeset(model, params, opts) do
     password_length = Keyword.fetch!(opts, :password_length)
 
@@ -40,6 +44,7 @@ defmodule Sesamex.Model do
   end
 
 
+  @spec encrypt_password(Tuple.t) :: Tuple.t
   defp encrypt_password(model) do
     case model do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
@@ -48,6 +53,7 @@ defmodule Sesamex.Model do
         model
     end
   end
+
 
   defmacro __using__([]) do
     quote do

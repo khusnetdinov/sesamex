@@ -16,9 +16,6 @@ defmodule Sesamex.Helpers do
     "#{y}#{pad(m)}#{pad(d)}#{pad(hh)}#{pad(mm)}#{pad(ss)}"
   end
 
-  defp pad(i) when i < 10, do: << ?0, ?0 + i >>
-  defp pad(i), do: to_string(i)
-
 
   @doc """
   """
@@ -51,4 +48,9 @@ defmodule Sesamex.Helpers do
       create_file(path, template)
     end
   end
+
+
+  @spec pad(Number.t) :: String.t
+  defp pad(i) when i < 10, do: << ?0, ?0 + i >>
+  defp pad(i), do: to_string(i)
 end
