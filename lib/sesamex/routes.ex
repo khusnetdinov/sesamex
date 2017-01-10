@@ -1,14 +1,12 @@
 defmodule Sesamex.Routes do
   use Phoenix.Router
 
+  import Sesamex
   import Inflex, only: [singularize: 1]
 
 
   @moduledoc """
   """
-
-
-  @modules [:registration, :session]
 
 
   @doc """
@@ -19,16 +17,6 @@ defmodule Sesamex.Routes do
     resources = Atom.to_string(resources_name)
 
     modules_routes(resources, modules, controllers)
-  end
-
-
-  @spec required_modules(Keyword.t) :: List.t
-  defp required_modules(opts) do
-    if only = Keyword.get(opts, :only) do
-      @modules -- (@modules -- only)
-    else
-      @modules -- Keyword.get(opts, :except, [])
-    end
   end
 
 
