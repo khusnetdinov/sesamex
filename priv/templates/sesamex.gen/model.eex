@@ -1,11 +1,23 @@
 defmodule <%= module %>.<%= base %> do
   use <%= module %>.Web, :model
+  use Sesamex.Model
+
 
   schema "<%= plural %>" do
     field :email, :string
     field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     field :encrypted_password, :string
 
     timestamps
+  end
+
+
+  def changeset(conn, params \\ :empty) do
+    changeset(conn, params, cast: [:email])
+  end
+
+  def registration_changeset(conn, params) do
+    registration_changeset(conn, params, password_length: [min: 6, max: 100])
   end
 end
