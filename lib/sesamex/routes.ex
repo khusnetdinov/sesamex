@@ -64,7 +64,7 @@ defmodule Sesamex.Routes do
   defp define_names(name, resource, predefined_controllers) do
     predefined_name = Keyword.get(predefined_controllers, name, nil)
     controller = define_controller(name, resource, predefined_name)
-    routes_path = define_routes_path(name, resource)
+    routes_path = define_routes_path(name)
 
     [controller, routes_path]
   end
@@ -82,8 +82,8 @@ defmodule Sesamex.Routes do
   end
 
 
-  @spec define_routes_path(String.t, String.t) :: String.t
-  defp define_routes_path(module, resource), do: "#{resource}_#{module}"
+  @spec define_routes_path(String.t) :: String.t
+  defp define_routes_path(module), do: "#{module}"
 
 
   defmacro __using__([]) do

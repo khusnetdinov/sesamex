@@ -1,0 +1,21 @@
+<h1>Sign In</h1>
+
+<%%= if @changeset.action do %>
+  <div class="alert alert-danger">
+    <p>Oops, something went wrong! Please check the error below!</p>
+  </div>
+<%% end %>
+
+<%%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
+  <div class="form-group">
+    <%%= text_input f, :email, placeholder: "Email", class: "form-control" %>
+    <%%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%%= password_input f, :password, placeholder: "Password", class: "form-control" %>
+    <%%= error_tag f, :password %>
+  </div>
+
+  <%%= submit "Sign In", class: "btn btn-primary" %>
+<%% end %>
