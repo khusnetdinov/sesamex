@@ -16,9 +16,9 @@ defmodule <%= base %>.<%= scoped %>.<%= controller %>Controller do
   case Repo.insert(changeset) do
     {:ok, model} ->
       conn
-      |> put_flash(:info, "#{model.name} created!")
+      |> put_flash(:info, "#{model.email} created!")
       |> sign_in(:<%= singular %>, model)
-      |> redirect(to: <%= singular %>_path(conn, :index))
+      |> redirect(to: page_path(conn, :index))
     {:error, changeset} ->
       render(conn, "new.html", changeset: changeset)
     end

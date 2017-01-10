@@ -9,12 +9,12 @@ defmodule Sesamex.Model do
 
   @doc """
   """
-  @spec changeset(Tuple.t, Tuple.t) :: Tuple.t
+  @spec changeset(Tuple.t, List.t) :: Tuple.t
   def changeset(model, params \\ :empty) do
-    changeset(model, params, [:email])
+    changeset(model, params, cast: [:email])
   end
 
-  @spec changeset(Tuple.t, Tuple.t, Keyword.t) :: Tuple.t
+  @spec changeset(Tuple.t, List.t List.t) :: Tuple.t
   def changeset(model, params, opts) do
     cast_fields = Keyword.fetch!(opts, :cast)
 
