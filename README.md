@@ -83,7 +83,7 @@ end
 ```elixir
 <%= if @current_user do %>
   <li><%= @current_user.email %></li>
-  <li><%= link "sign_out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
+  <li><%= link "sign_out", to: session_path(@conn, :delete), method: "delete" %>
 <% else %>
   <li><%= link "sign_up", to: registration_path(@conn, :new) %></li>
   <li><%= link "sign_in", to: session_path(@conn, :new) %></li>
