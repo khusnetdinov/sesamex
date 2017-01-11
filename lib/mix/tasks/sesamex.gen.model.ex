@@ -1,50 +1,32 @@
 defmodule Mix.Tasks.Sesamex.Gen.Model do
   use Mix.Task
 
-  import Mix.Sesamex
-  import Loki.File
-  import Loki.Shell
+  import Sesamex.Helpers
 
   require EEx
 
-  @moduledoc """
-  """
 
-  EEx.function_from_file :defp, :model_template,  "priv/templates/sesamex.gen/model.eex", [:module, :base, :plural]
-  EEx.function_from_file :defp, :migration_template,  "priv/templates/sesamex.gen/migration.eex", [:module, :base, :plural]
+  @files [:model, :migration]
 
-  @doc """
-  """
+  EEx.function_from_file :defp, :model_template,
+    "priv/templates/sesamex.gen/model.eex", [:module, :base, :plural]
+  EEx.function_from_file :defp, :migration_template,
+    "priv/templates/sesamex.gen/migration.eex", [:module, :base, :plural]
+
+
+  @spec run(List.t) :: none()
   def run([]) do
-    IO.puts "Please provide model!"
+    IO.puts "Please provide model name!"
   end
 
-  @doc false
+  @spec run(List.t) :: none()
   def run([singular, plural]) do
     bindings = Mix.Phoenix.inflect(singular)
 
-    model = model_template(bindings[:base], bindings[:scoped], plural)
     migration = migration_template(bindings[:base], bindings[:scoped], plural)
+    create_file_from(migration, "priv/repo/migrations/#{timestamp}_create_#{bindings[:path]}.exs")
 
-    model_path = "web/models/#{bindings[:path]}.ex"
-    migration_path = "priv/repo/migrations/#{timestamp}_create_#{bindings[:path]}.exs"
-
-    if exists_file? model_path do
-      if identical_file?(model_path, model) do
-        say_identical("#{model_path}")
-      else
-        say_exists("#{model_path}")
-        if yes?(" Do you want to force create file? [Yn] ") do
-          create_file_force(model_path, model)
-        else
-          say_skip(model_path)
-          :skip
-        end
-      end
-    else
-      create_file(model_path, model)
-    end
-
-    create_file(migration_path, migration)
+    model = model_template(bindings[:base], bindings[:scoped], plural)
+    create_file_from(model, "web/models/#{bindings[:path]}.ex")
   end
 end

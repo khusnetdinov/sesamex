@@ -1,10 +1,12 @@
-# Sesamex [WIP] [![Build Status](https://travis-ci.org/khusnetdinov/sesamex.svg?branch=master)](https://travis-ci.org/khusnetdinov/sesamex)
-
+# [WIP] Sesamex [![Code Triagers Badge](https://www.codetriage.com/khusnetdinov/sesamex/badges/users.svg)](https://www.codetriage.com/khusnetdinov/sesamex) [![Build Status](https://travis-ci.org/khusnetdinov/sesamex.svg?branch=master)](https://travis-ci.org/khusnetdinov/sesamex) [![Ebert](https://ebertapp.io/github/khusnetdinov/sesamex.svg)](https://ebertapp.io/github/khusnetdinov/sesamex) [![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/sesamex)
 ![img](http://res.cloudinary.com/dtoqqxqjv/image/upload/v1477049798/147705061811651_leoa8a.jpg)
+
+# NOTE: This repo in active development!
+
 
 ## Getting started
 
-Sesamex is a flexible authentication solution for Elixir / Phoenix. Functionality is devided to several modules:
+Sesamex are a simple and flexible authentication solution for Elixir / Phoenix.
 
 ## Installation
 
@@ -16,96 +18,201 @@ def deps do
 end
 ```
 
-## Usage
+## Authentication in 5 minutes!
 
-### Create resource model
+We are going to create authentication for `User` model in 5 minutes with `phoenix.new` bootstrapped application. 
 
-You need create model or add to exist fields for using them for authenticetion. For generation use mix task:
+1) Create model and migration for `User`.
 
 ```elixir
 $ mix sesamex.gen.model User users
 ```
 
-It will create 2 files:
-  - `web/models/user.ex`
-  - `priv/repo/migrations/#{timestamp}_create_user.ex`
-  
-After don't forget run ecto migration. If you need to add fields to exist model see [model.eex](https://github.com/khusnetdinov/sesamex/blob/resource_model/priv/templates/sesamex.gen/model.eex) and
-[migration.eex](https://github.com/khusnetdinov/sesamex/blob/master/priv/templates/sesamex.gen/migration.eex)
+2) Migrate database.
 
-[Read more]()
+```elixir
+$ mix ecto.migrate
+```
 
-### Setting up routes
+3) Create predefined controllers for using them in authentication.
 
-Fou need define `resource` for authentication requests. Use `Sesamex.Routes` module for this purpose. Rsource should be in plural form. See examle below:
+```elixir
+$ mix sesamex.gen.controllers User
+```
+
+4) Create predefined views modules.
+
+```elixir
+$ mix sesamex.gen.views User
+```
+
+5) Create predefined templates for sign_up and sign_in pages.
+ 
+```elixir
+$ mix sesamex.gen.templates User
+```
+
+6) Add routes modules `Sesamex.Routes`, `Sesamex.Pipeline` and functions `authenticate`, `session`.
 
 ```elixir
 defmodule Project.Routes do
-  use Project.Web, :routes
-  use Sesamex.Routes
-
   # ...
-
-  scope "/", Project do
-    pipe_through :browser
-    authenticate :users
-
+  use Sesamex.Routes
+  use Sesamex.Pipeline
+  
+  alias Project.Repo
+  alias Project.User
+  
+  pipeline :browser do
     # ...
-
-    get "/", PageController, :index
+    plug :session, [:user, User, Repo]
   end
 
+  scope "/", Project do
+    # ...
+    authenticate :users
+    
+    get "/", PageController, :index
+  end
   # ...
-
 end
 ```
 
-[Read more]()
+7) Add routes functions to `layout.html.eex`, remove lines with `Get Started` link and paste code below.
 
-## Modules
+```elixir
+<%= if @current_user do %>
+  <li><%= @current_user.email %></li>
+  <li><%= link "sign_out", to: session_path(@conn, :delete, @current_user), method: "delete" %>
+<% else %>
+  <li><%= link "sign_up", to: registration_path(@conn, :new) %></li>
+  <li><%= link "sign_in", to: session_path(@conn, :new) %></li>
+<% end %>
+```
 
-### Sesamex.Routes
+8) Run server `mix phoenix.server`.
 
-Add to Routes module `authentiate: 2` macros which create additional routes for `resource` and each functional module.
-It acceps `resource` in plural form.
-For constrain modules that you want to use pass to helper:
+## Usage
 
-  * only: [:module, :other_module] - Only for this modules will be generated routes;
+Sesamex goes with helper modules which keep required logic for authentification.
 
-  * expect: [:module, :other_module] - Except this modules will be generated routes;
+#### Generate model and migration for authentication process:
 
-By default macros generate routes for controllers which shoud be defined
-by user in resource scope with module name, see example:
+```elixir
+$ mix sesamex.gen.model Model models
+```
+
+The tasks accepts the same argements as phoenix model generation task - singular and plural forms of model.
+Task will generate 2 files:
+
+- `web/models/model.ex`
+- `priv/repo/migrations/#{timestamp}_create_model.ex`
+
+Model file keeps schema and changesets functions which were taken from `Sesamex.Model` by default. If you want customize, just write you own logic.
+
+By default Sesamex use `email`, `password` fields for authentication. If you want to change them or add additional fields you need to change migration and schema in this files.
+
+#### Generate predefined controllers modules for model scope:
+
+```elixir
+$ mix sesamex.gen.controllers Model
+```
+
+Task get `Model` in singular form for defining controllers modules scope and generate files. In example:
+```
+├── controllers/
+│   ├── model/
+│   │   ...
+│   │   └── registration_controller.ex
+│   └── page_controller.ex
+```
+
+By defualt sesamex generate controllers with scope `Project.Model.ExampleController`. If you want to use custom controllers you need change settings in routes. See below. 
+
+#### Generation predefined views modules for model scope:
+
+```elixir
+$ mix sesamex.gen.views Model
+```
+
+Task do the job like controllers task for views.
+
+#### Generation predefined templates for `sign_up`, `sign_in` pages:
+
+```elixir
+$ mix sesames.gen.templates Model
+```
+
+Task get `Model` scope name and create templates for pages:
+
+- `web/templates/model/registration/new.html.eex`
+- `web/templates/model/session/new.html.eex`
+
+Templates file keep predefined eex markup for using pages instantly.
+
+#### Generation routes and define default controllers:
+
+Add to `web/routex.ex` Sesamex modules and helpers:
+
+```elixir
+defmodule Project.Routes do
+  # ...
+  use Sesamex.Routes
+  use Sesamex.Pipeline
+  
+  alias Project.Repo
+  alias Project.User
+  
+  pipeline :browser do
+    # ...
+    plug :session, [:user, User, Repo]
+  end
+
+  scope "/", Project do
+    # ...
+    authenticate :users
+    
+    get "/", PageController, :index
+  end
+  # ...
+end
+```
+
+Module `Sesamex.Routes` macro `authenticate: 2` keep logic for generation route_paths for model. Note that you should atom in plural form `:models`. There are 2 opts `only`, `except`, see examples:
+
+- `only: [:module, :other_module]` 
+- `except: [:module, :other_module]`
+
+By default macros generate routes for controllers which shoud be scoped by model name, see example:
 
 ```elixir
 
   authenticate :users, only: [:registration]
 
   # Generate routes
-  # user_registration_path  GET  /users/sign_up  Project.User.RegistrationController :new
+  # registration_path  GET  /users/sign_up  Project.User.RegistrationController :new
   # ...
-
+  
 ```
 
 If you want to redifine controller name, use `controllers` Keywords list:
 
- * controllers: [module: OtherController] - Redefine controllers for module.
+- controllers: [module: OtherController] - Redefine controllers for module.
 
 ```elixir
 
   authenticate :users, controllers: [registration: OtherController]
 
   # Generate routes
-  # user_registration_path  GET  /users/sign_up  Project.OtherController :new
+  # registration_path  GET  /users/sign_up  Project.OtherController :new
   # ...
-
+  
 ```
 
-## Tasks
+#### Generation current model assigns in @conn:
 
-### TODO: Sesamex.Gen.Model
+Sesamex add to @conn `current_model` assigns for `Model`. You can use `@corrent_model` in views for checking persistance of authenticated model. 
 
-## TODO: Usage
 
 ## License
 

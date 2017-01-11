@@ -1,0 +1,26 @@
+defmodule <%= base %>.<%= scoped %>.<%= controller %>Controller do
+  use <%= base %>.Web, :controller
+  use Sesamex.Authentication
+
+  alias <%= base %>.Repo
+  alias <%= base %>.<%= scoped %>
+
+  def new(conn, _params) do
+    changeset = <%= scoped %>.changeset(%<%= scoped %>{})
+    render conn, "new.html", changeset: changeset
+  end
+
+  def create(conn, %{"<%= singular %>" => <%= singular %>_params}) do
+  changeset = <%= scoped %>.registration_changeset(%<%= scoped %>{}, <%= singular %>_params)
+
+  case Repo.insert(changeset) do
+    {:ok, model} ->
+      conn
+      |> put_flash(:info, "#{model.email} created!")
+      |> sign_in(:<%= singular %>, model)
+      |> redirect(to: page_path(conn, :index))
+    {:error, changeset} ->
+      render(conn, "new.html", changeset: changeset)
+    end
+  end
+end

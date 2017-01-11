@@ -1,5 +1,7 @@
 /_build
 /cover
 /deps
+/temp
 erl_crash.dump
 *.ez
+sesamex.iml
