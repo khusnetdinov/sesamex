@@ -7,9 +7,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Templates do
   require EEx
 
 
-  @moduledoc """
-  """
-
   @files [registration: [:new], session: [:new]]
 
   EEx.function_from_file :def, :registration_new_template,
@@ -18,8 +15,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Templates do
     "priv/templates/sesamex.gen/templates/session/new.eex", []
 
 
-  @doc """
-  """
   @spec run(List.t) :: none()
   def run([]) do
     IO.puts "Please provide model name!"

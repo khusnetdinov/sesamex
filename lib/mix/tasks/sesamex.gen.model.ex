@@ -6,10 +6,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Model do
   require EEx
 
 
-  @moduledoc """
-  """
-
-
   @files [:model, :migration]
 
   EEx.function_from_file :defp, :model_template,
@@ -18,8 +14,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Model do
     "priv/templates/sesamex.gen/migration.eex", [:module, :base, :plural]
 
 
-  @doc """
-  """
   @spec run(List.t) :: none()
   def run([]) do
     IO.puts "Please provide model name!"

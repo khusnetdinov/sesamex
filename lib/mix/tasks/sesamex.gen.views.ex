@@ -7,16 +7,10 @@ defmodule Mix.Tasks.Sesamex.Gen.Views do
   require EEx
 
 
-  @moduledoc """
-  """
-
-
   EEx.function_from_file :defp, :view_template,
     "priv/templates/sesamex.gen/view.eex", [:base, :scoped, :view]
 
 
-  @doc """
-  """
   @spec run(List.t) :: none()
   def run([]) do
     IO.puts "Please provide model name"

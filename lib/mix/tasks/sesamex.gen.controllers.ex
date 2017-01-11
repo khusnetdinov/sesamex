@@ -7,18 +7,12 @@ defmodule Mix.Tasks.Sesamex.Gen.Controllers do
   require EEx
 
 
-  @moduledoc """
-  """
-
-
   EEx.function_from_file :def, :registration_template,
     "priv/templates/sesamex.gen/controllers/registration.eex", [:base, :scoped, :singular, :controller]
   EEx.function_from_file :def, :session_template,
     "priv/templates/sesamex.gen/controllers/session.eex", [:base, :scoped, :singular, :controller]
 
 
-  @doc """
-  """
   @spec run(List.t) :: none()
   def run([]) do
     IO.puts "Please provide model name!"

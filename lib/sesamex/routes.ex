@@ -6,10 +6,12 @@ defmodule Sesamex.Routes do
 
 
   @moduledoc """
+  Routes generators for model.
   """
 
 
   @doc """
+  Generate routes path functions for given model.
   """
   defmacro authenticate(resources_name, opts \\ []) when is_atom(resources_name) do
     modules = required_modules(opts)

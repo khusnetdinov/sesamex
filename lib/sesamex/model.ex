@@ -4,10 +4,17 @@ defmodule Sesamex.Model do
 
 
   @moduledoc """
+  Collection Model functions for keep simple atuhentication.
+
+  It includes:
+
+    * `Sesamex.Model.Validations` - Custom changeset validations for authentication.
+
   """
 
 
   @doc """
+  Default chnageset.
   """
   @spec changeset(Tuple.t, List.t) :: Tuple.t
   def changeset(model, params \\ :empty) do
@@ -25,6 +32,7 @@ defmodule Sesamex.Model do
 
 
   @doc """
+  Default registration changeset.
   """
   @spec registration_changeset(Tuple.t, Tuple.t) :: Tuple.t
   def registration_changeset(model, params) do

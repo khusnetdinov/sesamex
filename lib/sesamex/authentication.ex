@@ -4,10 +4,12 @@ defmodule Sesamex.Authentication do
 
 
   @moduledoc """
+  Handle authentication methods for signing in and signing out.
   """
 
 
   @doc """
+  Authenticate resource.
   """
   @spec sign_in(Tuple.t, Atom.t, any) :: Tuple.t
   def sign_in(conn, resource_name, model) do
@@ -19,6 +21,7 @@ defmodule Sesamex.Authentication do
 
 
   @doc """
+  Authenticate resource by `:email` and `:password`.
   """
   @spec sign_in_by_email_and_password(Tuple.t, String.t, String.t, List.t) :: Tuple.t
   def sign_in_by_email_and_password(conn, email, password, [resource_name, model, repo]) do
@@ -51,6 +54,7 @@ defmodule Sesamex.Authentication do
 
 
   @doc """
+  Drop authenticated session.
   """
   @spec sign_out(Tuple.t) :: Tuple.t
   def sign_out(conn) do

@@ -3,10 +3,12 @@ defmodule Sesamex.Pipeline do
 
 
   @moduledoc """
+  Keep authentication pipeline methods.
   """
 
 
   @doc """
+  Authenticate session.
   """
   @spec session(Tuple.t, List.t) :: Tuple.t
   def session(conn, [resource, model, repo]) do

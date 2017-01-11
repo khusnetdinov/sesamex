@@ -5,10 +5,12 @@ defmodule Sesamex.Helpers do
 
 
   @moduledoc """
+  Reusable helpers for sesamex.
   """
 
 
   @doc """
+  Return current time timestamp string.
   """
   @spec timestamp() :: String.t
   def timestamp do
@@ -18,6 +20,7 @@ defmodule Sesamex.Helpers do
 
 
   @doc """
+  Create directory or do nothing if exists.
   """
   @spec create_directory_unless_exist(Path.t) :: none()
   def create_directory_unless_exist(path) do
@@ -30,6 +33,7 @@ defmodule Sesamex.Helpers do
 
 
   @doc """
+  Create file from string in given path.
   """
   @spec create_file_from(String.t, Path.t) :: none()
   def create_file_from(template, path) do

@@ -3,10 +3,12 @@ defmodule Sesamex.Model.Validation do
 
 
   @moduledoc """
+  Custom changeset validations for authentication.
   """
 
 
   @doc """
+  Validate password confirmation.
   """
   @spec validate_password_confirmation(Tuple.t) :: Tuple.t
   def validate_password_confirmation(changeset) do
