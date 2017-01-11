@@ -8,6 +8,11 @@
 
 Sesamex is a simple and flexible authentication solution for Elixir / Phoenix.
 
+#### Implemented functionality:
+
+- `:registration`
+- `:session`
+
 ## Installation
 
 Add `sesamex` to your list of dependencies in `mix.exs`:
