@@ -15,11 +15,6 @@ defmodule Mix.Tasks.Sesamex.Gen.Model do
 
 
   @spec run(List.t) :: none()
-  def run([]) do
-    IO.puts "Please provide model name!"
-  end
-
-  @spec run(List.t) :: none()
   def run([singular, plural]) do
     bindings = Mix.Phoenix.inflect(singular)
 

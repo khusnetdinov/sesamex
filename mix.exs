@@ -36,7 +36,7 @@ defmodule Sesames.Mixfile do
      {:inflex, "~> 1.7.0" },
      {:ecto, "~> 2.1.0"},
      {:comeonin, "~> 2.0"},
-     {:loki, "~> 1.1.0"},
+     {:loki, "~> 1.2.1"},
      {:phoenix, "~> 1.2.1"}]
   end
 end
