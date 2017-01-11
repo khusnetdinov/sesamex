@@ -23,7 +23,7 @@ defmodule Sesames.Mixfile do
   defp package do
     [
       name: :sesamex,
-      files: ~w(lib) ++
+      files: ~w(lib priv) ++
              ~w(LICENSE README.md mix.exs),
       maintainers: ["Marat Khusnetdinov"],
       licenses: ["MIT"],
