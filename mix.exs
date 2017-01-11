@@ -3,7 +3,7 @@ defmodule Sesames.Mixfile do
 
   def project do
     [app: :sesamex,
-     version: "0.2.0",
+     version: "0.2.1",
      elixir: "~> 1.3",
      description: description(),
      package: package(),
@@ -16,17 +16,18 @@ defmodule Sesames.Mixfile do
 
   defp description do
     """
-    Description
+    Sesamex is a simple and flexible authentication solution for Elixir / Phoenix.
     """
   end
 
   defp package do
     [
       name: :sesamex,
-      files: [],
-      maintainers: [],
-      licenses: [],
-      links: []
+      files: ~w(lib) ++
+             ~w(LICENSE README.md mix.exs),
+      maintainers: ["Marat Khusnetdinov"],
+      licenses: ["MIT"],
+      links: %{"GitHub" => "https://github.com/khusnetdinov/sesamex"}
     ]
   end
 
