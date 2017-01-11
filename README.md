@@ -14,13 +14,13 @@ Add `sesamex` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
-  [{:sesamex, "~> 0.1.0"}]
+  [{:sesamex, "~> 0.2.0"}]
 end
 ```
 
 ## Authentication in 5 minutes!
 
-We are going to create authentication for `User` model in 5 minutes with `phoenix.new` bootstrapped application. 
+We are going to create authentication for `User` model in 5 minutes with `phoenix.new` bootstrapped application.
 
 1) Create model and migration for `User`.
 
@@ -47,7 +47,7 @@ $ mix sesamex.gen.views User
 ```
 
 5) Create predefined templates for sign_up and sign_in pages.
- 
+
 ```elixir
 $ mix sesamex.gen.templates User
 ```
@@ -59,10 +59,10 @@ defmodule Project.Routes do
   # ...
   use Sesamex.Routes
   use Sesamex.Pipeline
-  
+
   alias Project.Repo
   alias Project.User
-  
+
   pipeline :browser do
     # ...
     plug :session, [:user, User, Repo]
@@ -71,7 +71,7 @@ defmodule Project.Routes do
   scope "/", Project do
     # ...
     authenticate :users
-    
+
     get "/", PageController, :index
   end
   # ...
@@ -127,7 +127,7 @@ Task get `Model` in singular form for defining controllers modules scope and gen
 │   └── page_controller.ex
 ```
 
-By defualt sesamex generate controllers with scope `Project.Model.ExampleController`. If you want to use custom controllers you need change settings in routes. See below. 
+By defualt sesamex generate controllers with scope `Project.Model.ExampleController`. If you want to use custom controllers you need change settings in routes. See below.
 
 #### Generation predefined views modules for model scope:
 
@@ -159,10 +159,10 @@ defmodule Project.Routes do
   # ...
   use Sesamex.Routes
   use Sesamex.Pipeline
-  
+
   alias Project.Repo
   alias Project.User
-  
+
   pipeline :browser do
     # ...
     plug :session, [:user, User, Repo]
@@ -171,7 +171,7 @@ defmodule Project.Routes do
   scope "/", Project do
     # ...
     authenticate :users
-    
+
     get "/", PageController, :index
   end
   # ...
@@ -180,7 +180,7 @@ end
 
 Module `Sesamex.Routes` macro `authenticate: 2` keep logic for generation route_paths for model. Note that you should atom in plural form `:models`. There are 2 opts `only`, `except`, see examples:
 
-- `only: [:module, :other_module]` 
+- `only: [:module, :other_module]`
 - `except: [:module, :other_module]`
 
 By default macros generate routes for controllers which shoud be scoped by model name, see example:
@@ -192,7 +192,7 @@ By default macros generate routes for controllers which shoud be scoped by model
   # Generate routes
   # registration_path  GET  /users/sign_up  Project.User.RegistrationController :new
   # ...
-  
+
 ```
 
 If you want to redifine controller name, use `controllers` Keywords list:
@@ -206,7 +206,7 @@ If you want to redifine controller name, use `controllers` Keywords list:
   # Generate routes
   # registration_path  GET  /users/sign_up  Project.OtherController :new
   # ...
-  
+
 ```
 
 #### Generation current model assigns in @conn:
