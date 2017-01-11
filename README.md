@@ -150,9 +150,66 @@ Templates file keep predefined eex markup for using pages instantly.
 
 #### Generation routes and define default controllers:
 
+Add to `web/routex.ex` Sesamex modules and helpers:
 
+```elixir
+defmodule Project.Routes do
+  # ...
+  use Sesamex.Routes
+  use Sesamex.Pipeline
+  
+  alias Project.Repo
+  alias Project.User
+  
+  pipeline :browser do
+    # ...
+    plug :session, [:user, User, Repo]
+  end
 
- 
+  scope "/", Project do
+    # ...
+    authenticate :users
+    
+    get "/", PageController, :index
+  end
+  # ...
+end
+```
+
+Module `Sesamex.Routes` macro `authenticate: 2` keep logic for generation route_paths for model. Note that you should atom in plural form `:models`. There are 2 opts `only`, `except`, see examples:
+
+- `only: [:module, :other_module]` 
+- `except: [:module, :other_module]`
+
+By default macros generate routes for controllers which shoud be scoped by model name, see example:
+
+```elixir
+
+  authenticate :users, only: [:registration]
+
+  # Generate routes
+  # registration_path  GET  /users/sign_up  Project.User.RegistrationController :new
+  # ...
+  
+```
+
+If you want to redifine controller name, use `controllers` Keywords list:
+
+- controllers: [module: OtherController] - Redefine controllers for module.
+
+```elixir
+
+  authenticate :users, controllers: [registration: OtherController]
+
+  # Generate routes
+  # user_registration_path  GET  /users/sign_up  Project.OtherController :new
+  # ...
+  
+```
+
+#### Generation current model assigns in @conn:
+
+Sesamex add to @conn `current_model` assigns for `Model`. You can use `@corrent_model` in views for checking persistance of authenticated model. 
 
 
 ## License
