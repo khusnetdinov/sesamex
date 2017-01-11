@@ -24,6 +24,7 @@ Sesamex is a simple and flexible authentication solution for Elixir / Phoenix.
 - `:lock, :unlock`
 - token auth
 - `:oauth`
+- change layout
 
 ## Installation
 
