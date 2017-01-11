@@ -202,7 +202,7 @@ If you want to redifine controller name, use `controllers` Keywords list:
   authenticate :users, controllers: [registration: OtherController]
 
   # Generate routes
-  # user_registration_path  GET  /users/sign_up  Project.OtherController :new
+  # registration_path  GET  /users/sign_up  Project.OtherController :new
   # ...
   
 ```
