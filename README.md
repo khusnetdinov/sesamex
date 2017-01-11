@@ -55,27 +55,7 @@ $ mix sesamex.gen.templates User
 6) Add routes modules `Sesamex.Routes`, `Sesamex.Pipeline` and functions `authenticate`, `session`.
 
 ```elixir
-defmodule Project.Routes do
-  # ...
-  use Sesamex.Routes
-  use Sesamex.Pipeline
-
-  alias Project.Repo
-  alias Project.User
-
-  pipeline :browser do
-    # ...
-    plug :session, [:user, User, Repo]
-  end
-
-  scope "/", Project do
-    # ...
-    authenticate :users
-
-    get "/", PageController, :index
-  end
-  # ...
-end
+$ mix sesamex.gen.routes User
 ```
 
 7) Add routes functions to `layout.html.eex`, remove lines with `Get Started` link and paste code below.
@@ -152,7 +132,11 @@ Templates file keep predefined eex markup for using pages instantly.
 
 #### Generation routes and define default controllers:
 
-Add to `web/routex.ex` Sesamex modules and helpers:
+```elixir
+$ mix sesamex.gen.routes Model
+```
+
+Adds to `web/routex.ex` Sesamex modules and helpers:
 
 ```elixir
 defmodule Project.Routes do
@@ -211,7 +195,7 @@ If you want to redifine controller name, use `controllers` Keywords list:
 
 #### Generation current model assigns in @conn:
 
-Sesamex add to @conn `current_model` assigns for `Model`. You can use `@corrent_model` in views for checking persistance of authenticated model. 
+Sesamex add to @conn `current_model` assigns for `Model`. You can use `@corrent_model` in views for checking persistance of authenticated model.
 
 
 ## License
