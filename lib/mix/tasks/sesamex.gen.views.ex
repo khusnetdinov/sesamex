@@ -24,7 +24,7 @@ defmodule Mix.Tasks.Sesamex.Gen.Views do
 
     Enum.each(modules, fn(file) ->
       view = view_template(bindings[:base], bindings[:scoped], String.capitalize("#{file}"))
-      path ="web/views/#{bindings[:path]}/#{file}_view.ex"
+      path = "web/views/#{bindings[:path]}/#{file}_view.ex"
       create_file_from(view, path)
     end)
   end
