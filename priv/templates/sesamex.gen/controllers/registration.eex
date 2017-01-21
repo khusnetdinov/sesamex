@@ -6,8 +6,14 @@ defmodule <%= base %>.<%= scoped %>.<%= controller %>Controller do
   alias <%= base %>.<%= scoped %>
 
   def new(conn, _params) do
-    changeset = <%= scoped %>.changeset(%<%= scoped %>{})
-    render conn, "new.html", changeset: changeset
+    if conn.assings.current_<%= singular %> do
+      conn
+      |> put_flash(:info, "You have already signed up!")
+      |> redirect(to: page_path(conn, :index))
+    else
+      changeset = <%= scoped %>.changeset(%<%= scoped %>{})
+      render conn, "new.html", changeset: changeset
+    end
   end
 
   def create(conn, %{"<%= singular %>" => <%= singular %>_params}) do
