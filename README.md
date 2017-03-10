@@ -1,5 +1,5 @@
 # [WIP] Sesamex [![Code Triagers Badge](https://www.codetriage.com/khusnetdinov/sesamex/badges/users.svg)](https://www.codetriage.com/khusnetdinov/sesamex) [![Build Status](https://travis-ci.org/khusnetdinov/sesamex.svg?branch=master)](https://travis-ci.org/khusnetdinov/sesamex) [![Ebert](https://ebertapp.io/github/khusnetdinov/sesamex.svg)](https://ebertapp.io/github/khusnetdinov/sesamex) [![Hex.pm](https://img.shields.io/hexpm/v/plug.svg)](https://hex.pm/packages/sesamex)
-![img](http://res.cloudinary.com/dtoqqxqjv/image/upload/v1477049798/147705061811651_leoa8a.jpg)
+![img](http://res.cloudinary.com/dtoqqxqjv/image/upload/v1489144587/github/147705061811651_leoa8a.jpg)
 
 # NOTE: This repo in active development!
 
