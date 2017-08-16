@@ -4,7 +4,13 @@ defmodule <%= base %>.<%= scoped %>.<%= controller %>Controller do
 
 
   def new(conn, _params) do
-    render conn, "new.html"
+    if conn.assings.current_<%= singular %> do
+      conn
+      |> put_flash(:info, "You have already signed in!")
+      |> redirect(to: page_path(conn, :index))
+    else
+      render conn, "new.html"
+    end
   end
 
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do
